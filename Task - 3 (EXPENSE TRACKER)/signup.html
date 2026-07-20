@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Spendora</title>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Brand Logo -->
+            <div class="logo-section">
+                <div class="logo-icon-container">
+                    <i data-lucide="pocket"></i>
+                </div>
+                <span class="logo-title">Spendora</span>
+            </div>
+
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Join Spendora and track your spending seamlessly</p>
+            </div>
+
+            <!-- Sign Up Form -->
+            <form id="form-signup">
+                <div class="form-group">
+                    <label class="form-label" for="signup-name">Full Name</label>
+                    <div class="form-input-wrapper">
+                        <input type="text" class="form-input" id="signup-name" placeholder="John Doe" required>
+                    </div>
+                    <span class="error-msg" id="err-signup-name"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="signup-email">Email Address</label>
+                    <div class="form-input-wrapper">
+                        <input type="email" class="form-input" id="signup-email" placeholder="name@example.com" required>
+                    </div>
+                    <span class="error-msg" id="err-signup-email"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="signup-password">Password (min 6 chars)</label>
+                    <div class="form-input-wrapper">
+                        <input type="password" class="form-input" id="signup-password" placeholder="••••••••" required>
+                        <button type="button" class="form-input-icon" id="toggle-signup-password" aria-label="Toggle Password Visibility">
+                            <i data-lucide="eye"></i>
+                        </button>
+                    </div>
+                    <!-- Password strength indicator bars -->
+                    <div class="strength-indicator" id="strength-indicator">
+                        <div class="strength-bar" id="strength-bar-1"></div>
+                        <div class="strength-bar" id="strength-bar-2"></div>
+                        <div class="strength-bar" id="strength-bar-3"></div>
+                    </div>
+                    <span class="error-msg" id="err-signup-password"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="signup-confirm">Confirm Password</label>
+                    <div class="form-input-wrapper">
+                        <input type="password" class="form-input" id="signup-confirm" placeholder="••••••••" required>
+                    </div>
+                    <span class="error-msg" id="err-signup-confirm"></span>
+                </div>
+
+                <button type="submit" class="btn" id="btn-signup-submit" style="margin-top: 10px;">
+                    Create Account <i data-lucide="user-plus"></i>
+                </button>
+            </form>
+
+            <!-- Social Sign-Up Divider & Button -->
+            <div class="auth-divider">or sign up with</div>
+            <button type="button" class="btn btn-google" id="btn-google-signup">
+                <svg class="google-logo" viewBox="0 0 24 24">
+                    <path fill="#EA4335" d="M12 5.04c1.67 0 3.2.58 4.4 1.71l3.26-3.26C17.7 1.64 15.06 1 12 1 7.24 1 3.2 3.73 1.25 7.72l3.87 3a6.97 6.97 0 0 1 6.88-5.68z"/>
+                    <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.36H12v4.51h6.44a5.5 5.5 0 0 1-2.39 3.61l3.71 2.88c2.17-2 3.73-4.94 3.73-8.64z"/>
+                    <path fill="#FBBC05" d="M5.12 10.72A7 7 0 0 1 5.12 7.7l-3.87-3a11.95 11.95 0 0 0 0 11.02l3.87-3z"/>
+                    <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.71-2.88a7 7 0 0 1-10.74-3.79l-3.89 3A11.94 11.94 0 0 0 12 23z"/>
+                </svg>
+                Sign Up with Google
+            </button>
+
+            <div class="auth-footer">
+                Already have an account? <a href="login.html" class="auth-link">Login</a>
+            </div>
+            <div class="auth-footer">
+                Forgot your password? <a href="forgot-password.html" class="auth-link">Reset Password</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- CDNs for Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Init Lucide Icons
+        lucide.createIcons();
+    </script>
+
+    <!-- App Logic Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/firestore.js"></script>
+    <script>
+        // DOM binding
+        const formSignup = document.getElementById('form-signup');
+        const nameInput = document.getElementById('signup-name');
+        const emailInput = document.getElementById('signup-email');
+        const passwordInput = document.getElementById('signup-password');
+        const confirmInput = document.getElementById('signup-confirm');
+        const togglePassword = document.getElementById('toggle-signup-password');
+        const btnGoogleSignup = document.getElementById('btn-google-signup');
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        // Password strength meter
+        passwordInput.addEventListener('input', () => {
+            const val = passwordInput.value;
+            const bar1 = document.getElementById('strength-bar-1');
+            const bar2 = document.getElementById('strength-bar-2');
+            const bar3 = document.getElementById('strength-bar-3');
+
+            // Reset
+            bar1.className = 'strength-bar';
+            bar2.className = 'strength-bar';
+            bar3.className = 'strength-bar';
+
+            if (!val) return;
+
+            // Weak check
+            if (val.length >= 4) {
+                bar1.classList.add('strength-weak');
+            }
+            // Medium check
+            if (val.length >= 6 && /[0-9]/.test(val)) {
+                bar2.classList.add('strength-medium');
+            }
+            // Strong check
+            if (val.length >= 8 && /[A-Z]/.test(val) && /[^A-Za-z0-9]/.test(val)) {
+                bar3.classList.add('strength-strong');
+            }
+        });
+
+        // Toggle Password visibility
+        togglePassword.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            confirmInput.type = isPassword ? 'text' : 'password';
+            togglePassword.innerHTML = `<i data-lucide="${isPassword ? 'eye-off' : 'eye'}"></i>`;
+            lucide.createIcons();
+        });
+
+        // Form Submit (Email/Password Registration)
+        formSignup.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Clear errors
+            document.getElementById('err-signup-name').textContent = '';
+            document.getElementById('err-signup-email').textContent = '';
+            document.getElementById('err-signup-password').textContent = '';
+            document.getElementById('err-signup-confirm').textContent = '';
+
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const confirmPassword = confirmInput.value;
+
+            // Client Validation
+            const validation = ValidationManager.validateSignUp(name, email, password, confirmPassword);
+            if (!validation.isValid) {
+                if (validation.errors.fullName) document.getElementById('err-signup-name').textContent = validation.errors.fullName;
+                if (validation.errors.email) document.getElementById('err-signup-email').textContent = validation.errors.email;
+                if (validation.errors.password) document.getElementById('err-signup-password').textContent = validation.errors.password;
+                if (validation.errors.confirmPassword) document.getElementById('err-signup-confirm').textContent = validation.errors.confirmPassword;
+                return;
+            }
+
+            // Start Loading
+            loadingOverlay.classList.add('active');
+
+            const result = await AuthManager.signUp(email, password);
+
+            if (result.success) {
+                // Save Full Name into profile document
+                await FirestoreManager.saveUserProfile(result.user.uid, {
+                    fullName: name,
+                    email: email,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                window.location.href = 'dashboard.html';
+            } else {
+                loadingOverlay.classList.remove('active');
+                document.getElementById('err-signup-password').textContent = result.error;
+            }
+        });
+
+        // Google Sign-Up (creates account + profile automatically via AuthManager)
+        btnGoogleSignup.addEventListener('click', async () => {
+            loadingOverlay.classList.add('active');
+            const result = await AuthManager.signInWithGoogle();
+            if (result.success) {
+                window.location.href = 'dashboard.html';
+            } else {
+                loadingOverlay.classList.remove('active');
+                alert(result.error);
+            }
+        });
+
+        // Auth guard: If already logged in, redirect directly to dashboard
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

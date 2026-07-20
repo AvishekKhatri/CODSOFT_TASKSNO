@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spendora - Premium Expense Tracker</title>
+    <meta name="description" content="Manage your personal finances, track spending, view trends, and maintain budgets with modern visual analytics.">
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- Printable View CSS -->
+    <style>
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .app-sidebar, 
+            .mobile-nav-toggle, 
+            .header-actions, 
+            .registry-header, 
+            .quick-add-section,
+            .toast-container,
+            .modal-overlay,
+            .action-btn {
+                display: none !important;
+            }
+            .main-layout {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+            .glass-panel {
+                border: 1px solid #ccc !important;
+                background: white !important;
+                box-shadow: none !important;
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Dashboard Container -->
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar" id="app-sidebar">
+            <div>
+                <div class="logo-section">
+                    <div class="logo-icon-container">
+                        <i data-lucide="pocket"></i>
+                    </div>
+                    <span class="logo-title">Spendora</span>
+                </div>
+
+                <!-- User Session Widget -->
+                <div class="user-profile-chip" id="user-profile-chip">
+                    <div class="user-avatar" id="user-avatar-initials">U</div>
+                    <div class="user-info">
+                        <span class="username-display" id="username-display">User</span>
+                        <span class="user-email-display" id="user-email-display">user@example.com</span>
+                    </div>
+                    <button class="logout-btn" id="btn-logout" title="Sign Out">
+                        <i data-lucide="log-out"></i>
+                    </button>
+                </div>
+                
+                <ul class="sidebar-menu">
+                    <li><a class="menu-item active"><i data-lucide="layout-dashboard"></i>Dashboard</a></li>
+                </ul>
+
+                <!-- Accounts Manager List Widget (Wallet Inspired) -->
+                <div class="sidebar-accounts-section">
+                    <div class="section-header-row">
+                        <span class="sidebar-section-title">ACCOUNTS</span>
+                        <button class="add-small-btn" id="btn-add-account-trigger" title="Create Account">
+                            <i data-lucide="plus"></i>
+                        </button>
+                    </div>
+                    <div class="accounts-list-container" id="sidebar-accounts-list">
+                        <!-- Accounts filled dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="theme-toggle-container">
+                    <span class="theme-toggle-label">DARK MODE</span>
+                    <button class="theme-btn" id="btn-theme-toggle" aria-label="Toggle Theme">
+                        <i data-lucide="moon"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-layout">
+            <!-- Header Panel -->
+            <header class="main-header">
+                <div>
+                    <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open Navigation">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 class="welcome-title">Financial Dashboard</h1>
+                    <p class="welcome-subtitle">Welcome back! Track your financial progress here.</p>
+                </div>
+                
+                <div class="header-actions">
+                    <select class="select-currency" id="currency-select" aria-label="Currency Selector"></select>
+                    
+                    <button class="btn btn-secondary btn-icon-only" id="btn-budget-settings" title="Budget Settings">
+                        <i data-lucide="sliders"></i>
+                    </button>
+                    
+                    <button class="btn btn-primary btn-add-tx-trigger">
+                        <i data-lucide="plus"></i> Add Transaction
+                    </button>
+                </div>
+            </header>
+
+            <!-- Alert Container for Budget limit warnings -->
+            <div id="alert-container"></div>
+
+            <!-- Summary Cards Row -->
+            <section class="dashboard-grid" aria-label="Summary Widgets">
+                <!-- Current Balance Card -->
+                <div class="glass-panel summary-card glass-panel-hover">
+                    <div class="card-header-icon">
+                        <div class="card-icon-container balance">
+                            <i data-lucide="wallet"></i>
+                        </div>
+                        <span class="trend-indicator trend-neutral" id="trend-balance">
+                            <i data-lucide="minus"></i> 0%
+                        </span>
+                    </div>
+                    <div>
+                        <span class="card-label">Current Balance</span>
+                        <h2 class="card-value" id="val-balance">$0.00</h2>
+                    </div>
+                </div>
+
+                <!-- Total Income Card -->
+                <div class="glass-panel summary-card glass-panel-hover">
+                    <div class="card-header-icon">
+                        <div class="card-icon-container income">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                        <span class="trend-indicator trend-neutral" id="trend-income">
+                            <i data-lucide="minus"></i> 0%
+                        </span>
+                    </div>
+                    <div>
+                        <span class="card-label">Total Income</span>
+                        <h2 class="card-value" id="val-income">$0.00</h2>
+                    </div>
+                </div>
+
+                <!-- Total Expenses Card -->
+                <div class="glass-panel summary-card glass-panel-hover">
+                    <div class="card-header-icon">
+                        <div class="card-icon-container expense">
+                            <i data-lucide="trending-down"></i>
+                        </div>
+                        <span class="trend-indicator trend-neutral" id="trend-expense">
+                            <i data-lucide="minus"></i> 0%
+                        </span>
+                    </div>
+                    <div>
+                        <span class="card-label">Total Expenses</span>
+                        <h2 class="card-value" id="val-expense">$0.00</h2>
+                    </div>
+                </div>
+
+                <!-- Monthly Savings Card -->
+                <div class="glass-panel summary-card glass-panel-hover">
+                    <div class="card-header-icon">
+                        <div class="card-icon-container savings">
+                            <i data-lucide="piggy-bank"></i>
+                        </div>
+                        <span class="trend-indicator trend-neutral" id="trend-savings">
+                            <i data-lucide="minus"></i> 0%
+                        </span>
+                    </div>
+                    <div>
+                        <span class="card-label">Monthly Savings</span>
+                        <h2 class="card-value" id="val-savings">$0.00</h2>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Add Categories Widget -->
+            <section class="quick-add-section" aria-label="Favorite Categories Quick Actions">
+                <button class="quick-add-btn btn-add-tx-trigger" data-type="expense" data-category="food"><i data-lucide="utensils"></i> Food</button>
+                <button class="quick-add-btn btn-add-tx-trigger" data-type="expense" data-category="shopping"><i data-lucide="shopping-bag"></i> Shopping</button>
+                <button class="quick-add-btn btn-add-tx-trigger" data-type="expense" data-category="bills"><i data-lucide="file-text"></i> Bills</button>
+                <button class="quick-add-btn btn-add-tx-trigger" data-type="expense" data-category="entertainment"><i data-lucide="tv"></i> Fun</button>
+                <button class="quick-add-btn btn-add-tx-trigger" data-type="income" data-category="salary"><i data-lucide="banknote"></i> Salary</button>
+            </section>
+
+            <!-- YNAB Budgets & Subscriptions Row -->
+            <section class="insights-row">
+                <!-- YNAB-style Category Budget Tracker -->
+                <div class="glass-panel budgets-panel">
+                    <div class="section-header-row" style="margin-bottom: 20px;">
+                        <h3 class="panel-title">YNAB Budgets (Category Targets)</h3>
+                        <button class="btn btn-secondary btn-sm" id="btn-add-budget-trigger">
+                            <i data-lucide="target"></i> Set Budget
+                        </button>
+                    </div>
+                    <div class="budget-items-list" id="budget-progress-list">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Rocket Money-style Subscription & Recurring Bills Tracker -->
+                <div class="glass-panel subscriptions-panel">
+                    <div class="section-header-row" style="margin-bottom: 20px;">
+                        <h3 class="panel-title">Active Subscriptions & Recurring Bills</h3>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <span class="sub-committed-badge" id="val-sub-monthly-total">$0.00/mo</span>
+                            <button class="btn btn-primary btn-sm" id="btn-add-sub-trigger">
+                                <i data-lucide="plus"></i> Add Bill
+                            </button>
+                        </div>
+                    </div>
+                    <div class="subscriptions-list-grid" id="subscriptions-list">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytical Visuals (Charts & Insights) -->
+            <section class="insights-row">
+                <!-- Left Hand Statistics panel -->
+                <div class="glass-panel insights-panel">
+                    <div class="insights-header">
+                        <h3 class="panel-title">Financial Health & Insights</h3>
+                    </div>
+
+                    <!-- Health score widget -->
+                    <div class="health-score-container">
+                        <div class="health-score-circle">
+                            <svg class="health-score-svg">
+                                <circle class="health-score-track" cx="32" cy="32" r="28"></circle>
+                                <circle class="health-score-fill" id="health-score-fill" cx="32" cy="32" r="28"></circle>
+                            </svg>
+                            <span class="health-score-text" id="val-health-score">0</span>
+                        </div>
+                        <div class="health-info">
+                            <span class="health-label">HEALTH SCORE</span>
+                            <span class="health-status" id="val-health-status">Excellent</span>
+                        </div>
+                    </div>
+
+                    <!-- Details Stats list -->
+                    <div>
+                        <div class="stat-item">
+                            <div class="stat-label-with-icon">
+                                <i data-lucide="pie-chart" class="stat-label-icon"></i>
+                                <span>Most Used Category</span>
+                            </div>
+                            <span class="stat-value" id="val-most-used-cat">N/A</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label-with-icon">
+                                <i data-lucide="arrow-down-right" class="stat-label-icon"></i>
+                                <span>Largest Expense</span>
+                            </div>
+                            <span class="stat-value" id="val-largest-expense">$0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label-with-icon">
+                                <i data-lucide="arrow-up-right" class="stat-label-icon"></i>
+                                <span>Largest Income</span>
+                            </div>
+                            <span class="stat-value" id="val-largest-income">$0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label-with-icon">
+                                <i data-lucide="calendar" class="stat-label-icon"></i>
+                                <span>Daily Average Expense</span>
+                            </div>
+                            <span class="stat-value" id="val-daily-avg">$0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label-with-icon">
+                                <i data-lucide="calculator" class="stat-label-icon"></i>
+                                <span>Savings Percentage</span>
+                            </div>
+                            <span class="stat-value" id="val-savings-pct">0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label-with-icon">
+                                <i data-lucide="trending-up" class="stat-label-icon"></i>
+                                <span>Average Expense Size</span>
+                            </div>
+                            <span class="stat-value" id="val-avg-expense">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hand charts grid -->
+                <div class="charts-container">
+                    <div class="glass-panel chart-card">
+                        <h3 class="panel-title">Expense Breakdown</h3>
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="chart-pie"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-panel chart-card">
+                        <h3 class="panel-title">Income vs Expenses</h3>
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="chart-bar"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel chart-card full-width">
+                        <h3 class="panel-title">Spending Trend (Current Month)</h3>
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="chart-line"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transactions Registry Section -->
+            <section class="transactions-section">
+                <div class="registry-header">
+                    <!-- Left: Search and Filters panel -->
+                    <div class="registry-actions">
+                        <div class="search-container">
+                            <i data-lucide="search" class="search-icon"></i>
+                            <input type="text" class="search-input" id="search-input" placeholder="Search title, category, notes...">
+                        </div>
+                        
+                        <div style="position: relative;">
+                            <button class="btn btn-secondary filter-toggle-btn" id="filter-toggle-btn">
+                                <i data-lucide="filter"></i> Filters
+                                <span class="filter-badge" id="active-filter-badge-count" style="display: none;">0</span>
+                            </button>
+                            
+                            <!-- Filters Flyout Panel -->
+                            <div class="filter-flyout" id="filter-flyout">
+                                <div class="filter-group">
+                                    <label class="filter-label" for="filter-type">Type</label>
+                                    <select class="filter-select" id="filter-type">
+                                        <option value="all">All</option>
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expense</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label class="filter-label" for="filter-category">Category</label>
+                                    <select class="filter-select" id="filter-category">
+                                        <option value="all">All</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label class="filter-label" for="filter-timeframe">Date Range</label>
+                                    <select class="filter-select" id="filter-timeframe">
+                                        <option value="all">All Time</option>
+                                        <option value="week">Current Week</option>
+                                        <option value="month">Current Month</option>
+                                        <option value="last_month">Last Month</option>
+                                        <option value="custom">Custom Date Range</option>
+                                    </select>
+                                </div>
+                                <div class="filter-row" id="filter-custom-range" style="display: none; gap: 8px;">
+                                    <div class="filter-group" style="flex: 1;">
+                                        <label class="filter-label" for="filter-start">Start</label>
+                                        <input type="date" class="filter-input" id="filter-start">
+                                    </div>
+                                    <div class="filter-group" style="flex: 1;">
+                                        <label class="filter-label" for="filter-end">End</label>
+                                        <input type="date" class="filter-input" id="filter-end">
+                                    </div>
+                                </div>
+                                <div class="filter-group">
+                                    <label class="filter-label" for="filter-sort-by">Sort By</label>
+                                    <select class="filter-select" id="filter-sort-by">
+                                        <option value="newest">Newest First</option>
+                                        <option value="oldest">Oldest First</option>
+                                        <option value="highest">Highest Amount</option>
+                                        <option value="lowest">Lowest Amount</option>
+                                        <option value="category">Category</option>
+                                        <option value="alphabetical">Alphabetical</option>
+                                    </select>
+                                </div>
+                                <div class="filter-buttons">
+                                    <button class="btn btn-secondary btn-sm" id="btn-reset-filters" style="flex: 1;">Reset</button>
+                                    <button class="btn btn-primary btn-sm" id="btn-apply-filters" style="flex: 1;">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Backup Data Export/Import buttons -->
+                    <div class="registry-actions">
+                        <button class="btn btn-secondary btn-sm" id="btn-export-csv" title="Export report to CSV file">
+                            <i data-lucide="download"></i> Export CSV
+                        </button>
+                        <button class="btn btn-secondary btn-sm" id="btn-export-pdf" title="Export dashboard layout to PDF">
+                            <i data-lucide="file-text"></i> Export PDF
+                        </button>
+                        <button class="btn btn-secondary btn-sm" id="btn-import-csv" title="Import transactions from CSV file">
+                            <i data-lucide="upload"></i> Import CSV
+                        </button>
+                        <!-- Hidden inputs -->
+                        <input type="file" id="csv-file-input" accept=".csv" style="display: none;">
+                    </div>
+                </div>
+
+                <!-- Transaction lists -->
+                <div class="transaction-list" id="transaction-list"></div>
+
+                <!-- Empty state layout -->
+                <div class="empty-state" id="empty-state" style="display: none;">
+                    <div class="empty-state-illustration">
+                        <i data-lucide="package-open"></i>
+                    </div>
+                    <h4 class="empty-state-title">No transactions logged</h4>
+                    <p class="empty-state-desc">Start managing your wealth by adding your very first income or expense.</p>
+                    <button class="btn btn-primary btn-add-tx-trigger">
+                        <i data-lucide="plus"></i> Add your first transaction
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals Layout Structure -->
+
+    <!-- Add/Edit Transaction Modal -->
+    <div class="modal-overlay" id="modal-transaction">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-tx-title">Add Transaction</h3>
+                <button class="modal-close" aria-label="Close Modal"><i data-lucide="x"></i></button>
+            </div>
+            
+            <form id="form-transaction">
+                <input type="hidden" id="tx-id">
+                
+                <div class="form-group">
+                    <label class="form-label" for="tx-title">Transaction Title</label>
+                    <input type="text" class="form-input" id="tx-title" placeholder="e.g. Weekly Grocery Run" required>
+                    <span class="error-msg"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="tx-amount">Amount</label>
+                        <input type="number" step="0.01" class="form-input" id="tx-amount" placeholder="0.00" required>
+                        <span class="error-msg"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="tx-type">Type</label>
+                        <select class="form-input" id="tx-type">
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="tx-category">Category</label>
+                        <select class="form-input" id="tx-category">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="tx-date">Date</label>
+                        <input type="date" class="form-input" id="tx-date" required>
+                        <span class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="tx-notes">Description / Notes</label>
+                    <textarea class="form-input" id="tx-notes" rows="2" placeholder="Optionally add notes regarding this transaction..."></textarea>
+                </div>
+
+                <div class="form-row" style="margin-bottom: 0;">
+                    <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="tx-favorite" style="width: 16px; height: 16px; accent-color: var(--color-primary);">
+                        <label class="form-label" for="tx-favorite" style="margin-bottom: 0; cursor: pointer;">Add to Favorites</label>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="tx-recurring" style="width: 16px; height: 16px; accent-color: var(--color-primary);">
+                        <label class="form-label" for="tx-recurring" style="margin-bottom: 0; cursor: pointer;">Recurring monthly</label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-transaction">Save Transaction</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal-overlay" id="modal-delete">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Transaction?</h3>
+                <button class="modal-close" aria-label="Close Modal"><i data-lucide="x"></i></button>
+            </div>
+            <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 24px;">
+                Are you absolutely sure you want to permanently delete this transaction record? This operation is irreversible.
+            </p>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btn-confirm-delete" style="background: var(--color-danger); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);">Confirm Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Budget Settings Modal -->
+    <div class="modal-overlay" id="modal-budget">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Monthly Limit Budget</h3>
+                <button class="modal-close" aria-label="Close Modal"><i data-lucide="x"></i></button>
+            </div>
+            <form id="form-budget">
+                <div class="form-group">
+                    <label class="form-label" for="budget-limit-val">Target Expense limit per Month</label>
+                    <input type="number" step="1" class="form-input" id="budget-limit-val" placeholder="e.g. 2000" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Limits</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add YNAB Budget Category Limit Modal -->
+    <div class="modal-overlay" id="modal-category-budget">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Set Category Target</h3>
+                <button class="modal-close" aria-label="Close Modal"><i data-lucide="x"></i></button>
+            </div>
+            <form id="form-category-budget">
+                <div class="form-group">
+                    <label class="form-label" for="budget-cat-select">Category</label>
+                    <select class="form-input" id="budget-cat-select">
+                        <option value="food">Food</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="bills">Bills</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="education">Education</option>
+                        <option value="health">Health</option>
+                        <option value="travel">Travel</option>
+                        <option value="rent">Rent</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="budget-cat-limit">Monthly Budget Limit</label>
+                    <input type="number" step="0.01" class="form-input" id="budget-cat-limit" placeholder="0.00" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Budget</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Virtual Account Modal -->
+    <div class="modal-overlay" id="modal-account">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Create Account</h3>
+                <button class="modal-close" aria-label="Close Modal"><i data-lucide="x"></i></button>
+            </div>
+            <form id="form-account">
+                <div class="form-group">
+                    <label class="form-label" for="account-name">Account Name</label>
+                    <input type="text" class="form-input" id="account-name" placeholder="e.g. Chase Savings" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="account-type">Account Type</label>
+                    <select class="form-input" id="account-type">
+                        <option value="cash">Cash Wallet</option>
+                        <option value="bank">Bank Checking/Savings</option>
+                        <option value="credit">Credit Card</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Subscription Modal -->
+    <div class="modal-overlay" id="modal-subscription">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Recurring Bill</h3>
+                <button class="modal-close" aria-label="Close Modal"><i data-lucide="x"></i></button>
+            </div>
+            
+            <form id="form-subscription">
+                <div class="form-group">
+                    <label class="form-label" for="sub-name">Subscription Name</label>
+                    <input type="text" class="form-input" id="sub-name" placeholder="e.g. Netflix, Spotify" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="sub-amount">Monthly Fee</label>
+                        <input type="number" step="0.01" class="form-input" id="sub-amount" placeholder="0.00" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="sub-date">Next Billing Date</label>
+                        <input type="date" class="form-input" id="sub-date" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Subscription</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Account Details Modal -->
+    <div class="modal-overlay" id="modal-profile-details">
+        <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Account Information</h3>
+                <button class="modal-close" aria-label="Close Modal"><i data-lucide="x"></i></button>
+            </div>
+            <div class="profile-details-body" style="padding: 16px 0;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 24px;">
+                    <div class="user-avatar" id="details-avatar" style="width: 72px; height: 72px; font-size: 24px; border-radius: 50%;">U</div>
+                    <div style="display: flex; gap: 8px; width: 100%; justify-content: center; align-items: center; max-width: 280px;">
+                        <input type="text" id="details-name-input" class="form-input" style="text-align: center; font-size: 16px; font-weight: 600; padding: 6px 12px; margin: 0; background: var(--bg-glass); border: 1px solid var(--border-glass);" placeholder="Full Name">
+                        <button class="btn btn-secondary btn-icon-only" id="btn-save-profile-name" title="Save Name" style="padding: 6px; flex-shrink: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="save" style="width: 16px; height: 16px;"></i>
+                        </button>
+                    </div>
+                    <span id="details-email" style="font-size: 14px; color: var(--text-muted); margin-top: -4px;">user@example.com</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-glass); padding-top: 16px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;">
+                        <span style="color: var(--text-secondary); font-weight: 500;">User ID:</span>
+                        <span id="details-uid" style="color: var(--text-primary); font-family: monospace; font-size: 12px;">-</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px;">
+                        <span style="color: var(--text-secondary); font-weight: 500;">Auth Provider:</span>
+                        <span id="details-provider" style="color: var(--text-primary); font-weight: 600; text-transform: capitalize;">-</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                        <span style="color: var(--text-secondary); font-weight: 500;">Active Account Balance:</span>
+                        <span id="details-active-balance" style="color: var(--color-primary); font-weight: 600;">$0.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions" style="margin-top: 8px;">
+                <button type="button" class="btn btn-primary btn-close-modal" style="width: 100%;">Close Details</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- CDNs for Lucide & ChartJS -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Firebase Compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+    <!-- JS Application Modules -->
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/firestore.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
