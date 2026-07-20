@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZenTask — A modular task planner with categories, priorities, due dates, and real-time search.">
+    <title>ZenTask | Modular Task Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Toast Notification Area -->
+        <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-left">
+            <span class="logo-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <h1 class="app-title">ZenTask</h1>
+        </div>
+        <div class="header-right">
+            <div id="user-profile" class="user-profile" style="display:none; align-items: center; gap: 12px;">
+                <button id="profile-btn" class="text-btn" title="View Profile" style="display: flex; align-items: center; gap: 6px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Profile
+                </button>
+                <button id="logout-btn" class="text-btn danger-text-btn" title="Logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                    Logout
+                </button>
+            </div>
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle dark mode" title="Toggle theme">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- Stats Dashboard -->
+        <section class="glass-card stats-card" aria-label="Task Statistics">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-value" id="stats-total">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+                <div class="stat-item completed">
+                    <span class="stat-value" id="stats-completed">0</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+                <div class="stat-item pending">
+                    <span class="stat-value" id="stats-pending">0</span>
+                    <span class="stat-label">Pending</span>
+                </div>
+                <div class="stat-item overdue">
+                    <span class="stat-value" id="stats-overdue">0</span>
+                    <span class="stat-label">Overdue</span>
+                </div>
+            </div>
+            <div class="stats-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="stats-progress-fill"></div>
+                </div>
+                <span class="progress-text" id="stats-progress-text">0% Completed</span>
+            </div>
+        </section>
+
+        <div class="dashboard-layout">
+            <!-- Left Panel: Filters -->
+            <aside class="sidebar-panel">
+
+                <!-- Filters Panel -->
+                <section class="glass-card filters-card" aria-labelledby="filters-title">
+                    <h2 id="filters-title" class="section-title">Filters & Sort</h2>
+
+                    <div class="filter-group">
+                        <label class="meta-label">Search</label>
+                        <input type="text" id="search-input" placeholder="Search tasks..." class="search-input">
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="meta-label">Status</label>
+                        <div class="tab-group" id="status-filters" role="group" aria-label="Filter by status">
+                            <button class="tab-btn active" data-filter-value="all" aria-pressed="true">All</button>
+                            <button class="tab-btn" data-filter-value="pending" aria-pressed="false">Pending</button>
+                            <button class="tab-btn" data-filter-value="completed" aria-pressed="false">Completed</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="meta-label">Priority</label>
+                        <div class="tab-group" id="priority-filters" role="group" aria-label="Filter by priority">
+                            <button class="tab-btn active" data-filter-value="all" aria-pressed="true">All</button>
+                            <button class="tab-btn" data-filter-value="low" aria-pressed="false">🟢 Low</button>
+                            <button class="tab-btn" data-filter-value="medium" aria-pressed="false">🟡 Med</button>
+                            <button class="tab-btn" data-filter-value="high" aria-pressed="false">🔴 High</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filter-category" class="meta-label">Category</label>
+                        <select id="filter-category" class="custom-select">
+                            <option value="all">All Categories</option>
+                            <option value="Personal">👤 Personal</option>
+                            <option value="Work">💼 Work</option>
+                            <option value="Study">🎓 Study</option>
+                            <option value="Shopping">🛒 Shopping</option>
+                            <option value="Health">❤️ Health</option>
+                            <option value="Other">✨ Other</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sort-by" class="meta-label">Sort By</label>
+                        <select id="sort-by" class="custom-select">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="due-date">Due Date</option>
+                            <option value="priority">Priority</option>
+                            <option value="alphabetical">Alphabetical</option>
+                        </select>
+                    </div>
+
+                    <button id="clear-filters-btn" class="text-btn btn-block">Reset Filters</button>
+                </section>
+            </aside>
+
+            <!-- Right Panel: Task Creation + Task List -->
+            <section class="main-panel" aria-labelledby="list-title">
+                <!-- Task Creation Form -->
+                <section class="glass-card form-card" aria-labelledby="form-title">
+                    <h2 id="form-title" class="section-title">Create New Task</h2>
+                    <form id="task-form" novalidate>
+                        <div class="form-group">
+                            <label for="task-title" class="meta-label">Task Title <span class="required-indicator">*</span></label>
+                            <div class="input-wrapper text-input-wrapper">
+                                <input type="text" id="task-title" placeholder="What needs to be done?" required autofocus aria-required="true">
+                                <span class="error-message" id="title-error" role="alert">Task title is required</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="task-desc" class="meta-label">Description (Optional)</label>
+                            <textarea id="task-desc" placeholder="Add some notes or details..." rows="2" class="form-control"></textarea>
+                        </div>
+
+                        <!-- Meta grid -->
+                        <div class="form-metadata">
+                            <div class="meta-field">
+                                <label for="task-category">Category</label>
+                                <select id="task-category" class="custom-select">
+                                    <option value="Personal" selected>👤 Personal</option>
+                                    <option value="Work">💼 Work</option>
+                                    <option value="Study">🎓 Study</option>
+                                    <option value="Shopping">🛒 Shopping</option>
+                                    <option value="Health">❤️ Health</option>
+                                    <option value="Other">✨ Other</option>
+                                </select>
+                            </div>
+
+                            <div class="meta-field">
+                                <label for="task-priority">Priority</label>
+                                <select id="task-priority" class="custom-select">
+                                    <option value="low">🟢 Low</option>
+                                    <option value="medium" selected>🟡 Medium</option>
+                                    <option value="high">🔴 High</option>
+                                </select>
+                            </div>
+
+                            <div class="meta-field">
+                                <label for="task-due-date">Due Date</label>
+                                <input type="date" id="task-due-date" class="custom-select">
+                                <span class="warning-message">⚠️ This date is in the past</span>
+                            </div>
+                        </div>
+
+                        <div class="form-submit-row">
+                            <button type="submit" class="primary-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
+                                Add Task
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <div class="list-header">
+                    <h2 id="list-title" class="section-title">Your Tasks</h2>
+                    <div class="header-bulk-actions">
+                        <button id="clear-completed-btn" class="text-btn">Clear Completed</button>
+                        <button id="clear-all-btn" class="text-btn danger-text-btn">Clear All</button>
+                    </div>
+                </div>
+
+                <div id="tasks-container" class="tasks-container"></div>
+
+                <!-- Empty state -->
+                <div id="empty-state" class="empty-state" style="display:none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.3"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <p class="empty-title">No tasks found</p>
+                    <p class="empty-subtitle">Create a new task or adjust your filters.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Edit Task Modal -->
+    <div id="edit-modal" class="modal-overlay">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2>Edit Task</h2>
+                <button id="close-modal-btn" class="icon-btn" aria-label="Close modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+                </button>
+            </div>
+            <form id="edit-task-form" novalidate>
+                <input type="hidden" id="edit-task-id">
+                <div class="form-group">
+                    <label for="edit-task-title" class="meta-label">Task Title <span class="required-indicator">*</span></label>
+                    <div class="input-wrapper text-input-wrapper">
+                        <input type="text" id="edit-task-title" required>
+                        <span class="error-message" id="edit-title-error" role="alert">Task title is required</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-task-desc" class="meta-label">Description</label>
+                    <textarea id="edit-task-desc" rows="2" class="form-control"></textarea>
+                </div>
+                <div class="form-metadata">
+                    <div class="meta-field">
+                        <label for="edit-task-category">Category</label>
+                        <select id="edit-task-category" class="custom-select">
+                            <option value="Personal">👤 Personal</option>
+                            <option value="Work">💼 Work</option>
+                            <option value="Study">🎓 Study</option>
+                            <option value="Shopping">🛒 Shopping</option>
+                            <option value="Health">❤️ Health</option>
+                            <option value="Other">✨ Other</option>
+                        </select>
+                    </div>
+                    <div class="meta-field">
+                        <label for="edit-task-priority">Priority</label>
+                        <select id="edit-task-priority" class="custom-select">
+                            <option value="low">🟢 Low</option>
+                            <option value="medium">🟡 Medium</option>
+                            <option value="high">🔴 High</option>
+                        </select>
+                    </div>
+                    <div class="meta-field">
+                        <label for="edit-task-due-date">Due Date</label>
+                        <input type="date" id="edit-task-due-date" class="custom-select">
+                        <span class="warning-message" id="edit-date-warning">⚠️ This date is in the past</span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" id="cancel-edit-btn" class="secondary-btn">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2>User Profile</h2>
+                <button id="close-profile-modal-btn" class="icon-btn" aria-label="Close profile modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" x2="18" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+                </button>
+            </div>
+            <form id="profile-form">
+                <div class="profile-details-body" style="padding: 16px 0; display: flex; flex-direction: column; gap: 16px;">
+                    <div class="profile-avatar-row" style="display: flex; align-items: center; gap: 16px; margin-bottom: 8px;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--primary-glow); border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <label for="profile-name-input" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600;">Display Name</label>
+                            <input type="text" id="profile-name-input" class="custom-select" style="font-size: 1rem; font-weight: 600; width: 100%; margin-top: 4px;" placeholder="Your name">
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div>
+                            <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600;">Email Address</span>
+                            <p id="profile-email-display" style="font-size: 0.95rem; font-weight: 500; margin: 4px 0 0 0; word-break: break-all; opacity: 0.8;">email@example.com</p>
+                        </div>
+                        <div>
+                            <label for="profile-uid-input" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 600;">User Identifier (UID)</label>
+                            <input type="text" id="profile-uid-input" class="custom-select" style="font-size: 0.85rem; font-family: monospace; width: 100%; margin-top: 4px;" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions" style="margin-top: 8px; display: flex; gap: 8px;">
+                    <button type="button" id="close-profile-btn" class="secondary-btn" style="flex: 1;">Cancel</button>
+                    <button type="submit" id="save-profile-btn" class="primary-btn" style="flex: 1;">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
