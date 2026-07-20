@@ -1,0 +1,39 @@
+query ListTasksByList($listId: UUID!) @auth(level: USER) {
+  tasks(where: {listId: {eq: $listId}}) {
+    id
+    title
+    isCompleted
+    dueDate
+    priorityLevel
+    description
+  }
+}
+
+mutation CreateTask($listId: UUID!, $title: String!, $description: String) @auth(level: USER) {
+  task_insert(
+    data: {
+      listId: $listId,
+      title: $title,
+      description: $description,
+      isCompleted: false
+    }
+  )
+}
+
+mutation UpdateTaskStatus($id: UUID!, $isCompleted: Boolean!) @auth(level: USER) {
+  task_update(
+    key: {id: $id},
+    data: {isCompleted: $isCompleted}
+  )
+}
+
+mutation AddComment($taskId: UUID!, $content: String!) @auth(level: USER) {
+  comment_insert(
+    data: {
+      taskId: $taskId,
+      userId_expr: "auth.uid",
+      content: $content,
+      createdAt_expr: "request.time"
+    }
+  )
+}

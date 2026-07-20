@@ -1,0 +1,40 @@
+type User @table {
+  email: String!
+  displayName: String!
+  avatarUrl: String
+}
+
+type TaskList @table {
+  title: String!
+  owner: User!
+  description: String
+  colorCode: String
+}
+
+type Task @table {
+  title: String!
+  isCompleted: Boolean!
+  list: TaskList!
+  dueDate: Date
+  priorityLevel: String
+  description: String
+}
+
+type ListMember @table {
+  list: TaskList!
+  user: User!
+  role: String!
+}
+
+type Comment @table {
+  task: Task!
+  user: User!
+  content: String!
+  createdAt: Timestamp!
+}
+
+type Tag @table {
+  name: String!
+  user: User!
+  color: String
+}
