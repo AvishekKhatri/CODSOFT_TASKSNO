@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio of Avishek Khatri — Full-Stack Developer & Creative Technologist. Explore projects, skills, and get in touch.">
+    <meta name="keywords" content="portfolio, developer, full-stack, web developer, frontend, backend, projects">
+    <meta name="author" content="Avishek Khatri">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Avishek Khatri | Full-Stack Developer & Creative Technologist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ========== CURSOR GLOW ========== -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- ========== NAVIGATION ========== -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#home" class="nav__logo" id="navLogo">
+                <span class="logo-bracket">&lt;</span>Avishek Khatri<span class="logo-bracket"> /&gt;</span>
+            </a>
+            <div class="nav__menu" id="navMenu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active-link" data-section="home">Home</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link" data-section="about">About</a></li>
+                    <li class="nav__item"><a href="#skills" class="nav__link" data-section="skills">Skills</a></li>
+                    <li class="nav__item"><a href="#projects" class="nav__link" data-section="projects">Projects</a></li>
+                    <li class="nav__item"><a href="#resume" class="nav__link" data-section="resume">Resume</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link" data-section="contact">Contact</a></li>
+                </ul>
+                <button class="nav__close" id="navClose" aria-label="Close menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="nav__actions">
+                <a href="preview.html" class="preview-toggle" aria-label="Responsive Device Simulator">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button class="nav__toggle" id="navToggle" aria-label="Open menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="home section" id="home">
+            <div class="home__container container">
+                <div class="home__content">
+                    <div class="home__social">
+                        <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="home__social-link" aria-label="GitHub">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="home__social-link" aria-label="LinkedIn">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" class="home__social-link" aria-label="Twitter">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <div class="home__social-line"></div>
+                    </div>
+                    <div class="home__data">
+                        <span class="home__greeting">Hello, I'm</span>
+                        <h1 class="home__name">Avishek Khatri</h1>
+                        <div class="home__role-wrapper">
+                            <span class="home__role-prefix">I build</span>
+                            <span class="home__role" id="typewriter"></span>
+                            <span class="home__cursor">|</span>
+                        </div>
+                        <p class="home__description">
+                            A passionate full-stack developer crafting elegant digital experiences 
+                            with clean code and creative design. Turning ideas into pixel-perfect reality.
+                        </p>
+                        <div class="home__buttons">
+                            <a href="#projects" class="button button--primary">
+                                <span>View My Work</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                            <a href="#contact" class="button button--outline">
+                                <span>Get In Touch</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="home__image-wrapper">
+                        <div class="home__image-container">
+                            <div class="home__image-ring"></div>
+                            <div class="home__image-ring home__image-ring--2"></div>
+                            <div class="home__image-blob">
+                                <div class="home__avatar">
+                                    <div class="avatar-placeholder">
+                                        <span class="avatar-letter">A</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="home__floating-badge home__floating-badge--1">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                <span>Developer</span>
+                            </div>
+                            <div class="home__floating-badge home__floating-badge--2">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                                <span>Creative</span>
+                            </div>
+                            <div class="home__floating-badge home__floating-badge--3">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                <span>Designer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="home__scroll">
+                    <a href="#about" class="home__scroll-link">
+                        <div class="home__scroll-mouse">
+                            <div class="home__scroll-wheel"></div>
+                        </div>
+                        <span class="home__scroll-text">Scroll Down</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Particle canvas for hero -->
+            <canvas id="particleCanvas" class="home__particles"></canvas>
+        </section>
+
+        <!-- ========== ABOUT SECTION ========== -->
+
+<section class="about section" id="about">
+            <div class="about__container container">
+                <div class="section__header" data-animate="fade-up">
+                    <span class="section__subtitle">Get To Know</span>
+                    <h2 class="section__title">About Me</h2>
+                    <div class="section__title-line"></div>
+                </div>
+                <div class="about__content">
+                    <div class="about__image-side" data-animate="fade-right">
+                        <div class="about__image-card">
+                            <div class="about__image-inner">
+                                <div class="about__avatar-large">
+                                    <svg class="about__avatar-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#6c63ff" />
+                                                <stop offset="100%" stop-color="#a855f7" />
+                                            </linearGradient>
+                                            <linearGradient id="avatarGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="#a855f7" stop-opacity="0.3"/>
+                                                <stop offset="100%" stop-color="#6c63ff" stop-opacity="0.02"/>
+                                            </linearGradient>
+                                            <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#a855f7" />
+                                                <stop offset="100%" stop-color="#ec4899" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle cx="50" cy="50" r="46" fill="url(#avatarGlow)" stroke="url(#avatarGrad)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                                        <path d="M46 62 v8 h8 v-8 Z" fill="url(#avatarGrad)" opacity="0.8"/>
+                                        <path d="M38 34 C38 26, 62 26, 62 34 V48 C62 55, 38 55, 38 48 Z" fill="url(#avatarGrad)"/>
+                                        <path d="M36 34 C35 24, 48 18, 55 20 C62 20, 65 24, 64 34 C64 30, 58 26, 52 28 C46 30, 38 30, 36 34 Z" fill="url(#hairGrad)"/>
+                                        <path d="M37 32 v6 h2 v-6 Z" fill="url(#hairGrad)"/>
+                                        <path d="M61 32 v6 h-2 v-6 Z" fill="url(#hairGrad)"/>
+                                        <rect x="39" y="38" width="10" height="6" rx="2" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+                                        <rect x="51" y="38" width="10" height="6" rx="2" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+                                        <line x1="49" y1="41" x2="51" y2="41" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+                                        <path d="M22 78 C22 66, 32 64, 50 64 C68 64, 78 66, 78 78 V82 H22 V78 Z" fill="url(#avatarGrad)" opacity="0.95"/>
+                                        <path d="M44 64 L50 72 L56 64" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="about__experience-badge">
+                                <span class="about__experience-number">1+</span>
+                                <span class="about__experience-text">Year<br>Experience</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about__info-side" data-animate="fade-left">
+                        <div class="about__stats">
+                            <div class="about__stat-card">
+                                <div class="about__stat-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                                </div>
+                                <h3 class="about__stat-number" data-count="5">0</h3>
+                                <span class="about__stat-label">Projects Done</span>
+                            </div>
+                            <div class="about__stat-card">
+                                <div class="about__stat-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                </div>
+                                <h3 class="about__stat-number" data-count="10">0</h3>
+                                <span class="about__stat-label">Happy Clients</span>
+                            </div>
+                            <div class="about__stat-card">
+                                <div class="about__stat-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                                </div>
+                                <h3 class="about__stat-number" data-count="5">0</h3>
+                                <span class="about__stat-label">Certifications</span>
+                            </div>
+                        </div>
+                        <p class="about__description">
+                            I'm a full-stack developer with a deep passion for creating beautiful,
+                            performant web applications. With expertise spanning modern JavaScript
+                            frameworks, backend technologies, and UI/UX design, I bring ideas to life
+                            through clean, maintainable code.
+                        </p>
+                        <p class="about__description">
+                            When I'm not coding, you'll find me exploring new technologies,
+                            contributing to open source, or sharing knowledge through technical writing.
+                            I believe in continuous learning and pushing the boundaries of what's possible on the web.
+                        </p>
+                        <a href="#contact" class="button button--primary">
+                            <span>Let's Talk</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>        <!-- ========== SKILLS SECTION ========== -->
+
+<section class="skills section" id="skills">
+            <div class="skills__container container">
+                <div class="section__header" data-animate="fade-up">
+                    <span class="section__subtitle">What I Know</span>
+                    <h2 class="section__title">Skills &amp; Technologies</h2>
+                    <div class="section__title-line"></div>
+                </div>
+                <div class="skills__content">
+                    <div class="skills__tabs" data-animate="fade-up">
+                        <button class="skills__tab active" data-tab="languages">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            Languages
+                        </button>
+                        <button class="skills__tab" data-tab="frameworks">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                            Frameworks
+                        </button>
+                        <button class="skills__tab" data-tab="tools">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            Tools
+                        </button>
+                        <button class="skills__tab" data-tab="databases">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                            Databases
+                        </button>
+                        <button class="skills__tab" data-tab="concepts">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            Concepts
+                        </button>
+                    </div>
+                    <div class="skills__panels">
+                        <!-- Languages Panel -->
+                        <div class="skills__panel active" id="panel-languages" data-animate="fade-up">
+                            <div class="skills__grid">
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #3776AB"><span>Py</span></div>
+                                    <h3 class="skill-card__name">Python</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="85"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #00599C"><span>C</span></div>
+                                    <h3 class="skill-card__name">C/C++</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="88"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #f89820"><span>Jv</span></div>
+                                    <h3 class="skill-card__name">Java</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="82"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #336791"><span>SQL</span></div>
+                                    <h3 class="skill-card__name">SQL</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="88"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #F7DF1E"><span>JS</span></div>
+                                    <h3 class="skill-card__name">JavaScript</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="80"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #5D4F85"><span>Hs</span></div>
+                                    <h3 class="skill-card__name">Haskell</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="60"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #555555"><span>EC</span></div>
+                                    <h3 class="skill-card__name">Embedded C</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="65"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #E34F26"><span>H5</span></div>
+                                    <h3 class="skill-card__name">HTML</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="92"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Frameworks Panel -->
+                        <div class="skills__panel" id="panel-frameworks">
+                            <div class="skills__grid">
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #61DAFB"><span>Re</span></div>
+                                    <h3 class="skill-card__name">React.js</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="75"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #6DB33F"><span>SB</span></div>
+                                    <h3 class="skill-card__name">Spring Boot</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="72"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #339933"><span>Nd</span></div>
+                                    <h3 class="skill-card__name">Node.js</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="70"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #FF6600"><span>PJ</span></div>
+                                    <h3 class="skill-card__name">PeerJS</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="68"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #333333"><span>WR</span></div>
+                                    <h3 class="skill-card__name">WebRTC</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="70"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tools Panel -->
+                        <div class="skills__panel" id="panel-tools">
+                            <div class="skills__grid">
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #F05032"><span>Git</span></div>
+                                    <h3 class="skill-card__name">Git</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="88"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #181717"><span>GH</span></div>
+                                    <h3 class="skill-card__name">GitHub</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="90"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #C71A36"><span>Mv</span></div>
+                                    <h3 class="skill-card__name">Maven</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="72"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #2496ED"><span>Dk</span></div>
+                                    <h3 class="skill-card__name">Docker</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="65"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #231F20"><span>Kf</span></div>
+                                    <h3 class="skill-card__name">Kafka</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="68"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #FFCA28"><span>Fb</span></div>
+                                    <h3 class="skill-card__name">Firebase</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="78"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #F2C811"><span>BI</span></div>
+                                    <h3 class="skill-card__name">Power BI</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="70"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #009688"><span>API</span></div>
+                                    <h3 class="skill-card__name">REST APIs</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="82"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Databases Panel -->
+                        <div class="skills__panel" id="panel-databases">
+                            <div class="skills__grid">
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #4479A1"><span>My</span></div>
+                                    <h3 class="skill-card__name">MySQL</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="85"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #0000BB"><span>H2</span></div>
+                                    <h3 class="skill-card__name">H2</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="72"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #FFCA28"><span>FS</span></div>
+                                    <h3 class="skill-card__name">Firebase Firestore</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="75"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Concepts Panel -->
+                        <div class="skills__panel" id="panel-concepts">
+                            <div class="skills__grid">
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #8E44AD"><span>OOP</span></div>
+                                    <h3 class="skill-card__name">OOP</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="88"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #1ABC9C"><span>MS</span></div>
+                                    <h3 class="skill-card__name">Microservices</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="70"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #E74C3C"><span>IAM</span></div>
+                                    <h3 class="skill-card__name">IAM</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="72"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #3498DB"><span>DA</span></div>
+                                    <h3 class="skill-card__name">Data Analysis</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="75"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #F39C12"><span>ML</span></div>
+                                    <h3 class="skill-card__name">Machine Learning</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="60"></div></div>
+                                </div>
+                                <div class="skill-card">
+                                    <div class="skill-card__icon" style="--skill-color: #2ECC71"><span>Ag</span></div>
+                                    <h3 class="skill-card__name">Agile</h3>
+                                    <div class="skill-card__bar"><div class="skill-card__progress" data-progress="78"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skills__soft-section" data-animate="fade-up" style="margin-top: 4rem;">
+                        <h3 style="font-size: var(--h3-font-size); color: var(--title-color); margin-bottom: 2rem; text-align: center;">Soft Skills</h3>
+                        <div class="skills__grid">
+                            <div class="skill-card">
+                                <div class="skill-card__icon" style="--skill-color: #D83B01"><span>MS</span></div>
+                                <h3 class="skill-card__name">Microsoft Office</h3>
+                                <div class="skill-card__bar"><div class="skill-card__progress" data-progress="95"></div></div>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-card__icon" style="--skill-color: #8E44AD"><span>Com</span></div>
+                                <h3 class="skill-card__name">Communication and Leadership</h3>
+                                <div class="skill-card__bar"><div class="skill-card__progress" data-progress="90"></div></div>
+                            </div>
+                            <div class="skill-card">
+                                <div class="skill-card__icon" style="--skill-color: #16A085"><span>Col</span></div>
+                                <h3 class="skill-card__name">Coordination and Collaboration</h3>
+                                <div class="skill-card__bar"><div class="skill-card__progress" data-progress="90"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========== PROJECTS SECTION ========== -->
+
+<section class="projects section" id="projects">
+            <div class="projects__container container">
+                <div class="section__header" data-animate="fade-up">
+                    <span class="section__subtitle">My Recent Work</span>
+                    <h2 class="section__title">Featured Projects</h2>
+                    <div class="section__title-line"></div>
+                </div>
+                <div class="projects__filters" data-animate="fade-up">
+                    <button class="projects__filter active" data-filter="all">All</button>
+                    <button class="projects__filter" data-filter="web">Web App</button>
+                    <button class="projects__filter" data-filter="mobile">Mobile</button>
+                    <button class="projects__filter" data-filter="design">Design</button>
+                </div>
+                <div class="projects__grid" data-animate="fade-up">
+                    <!-- Project 1 -->
+                    <article class="project-card" data-category="web">
+                        <div class="project-card__image">
+                            <img src="project1.png" alt="Flight Management System" class="project-card__img">
+                            <div class="project-card__overlay">
+                                <a href="https://github.com/AvishekKhatri" class="project-card__link" aria-label="View source code">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-card__content">
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">Java</span>
+                                <span class="project-card__tag">SQL</span>
+                            </div>
+                            <h3 class="project-card__title">Flight Management System</h3>
+                            <p class="project-card__description">A comprehensive flight management system facilitating flight bookings with customizable options and an intuitive admin dashboard.</p>
+                        </div>
+                    </article>
+                    <!-- Project 2 -->
+                    <article class="project-card" data-category="mobile">
+                        <div class="project-card__image">
+                            <img src="project2.png" alt="Strangers Connection" class="project-card__img">
+                            <div class="project-card__overlay">
+                                <a href="https://github.com/AvishekKhatri" class="project-card__link" aria-label="View source code">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-card__content">
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">Android</span>
+                                <span class="project-card__tag">WebRTC</span>
+                                <span class="project-card__tag">Firebase</span>
+                            </div>
+                            <h3 class="project-card__title">Strangers Connection</h3>
+                            <p class="project-card__description">Mobile app for anonymous video communication using PeerJS and WebRTC with a points system and user authentication.</p>
+                        </div>
+                    </article>
+                    <!-- Project 3 -->
+                    <article class="project-card" data-category="web">
+                        <div class="project-card__image">
+                            <img src="project3.png" alt="budget-wise-forecast" class="project-card__img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\' viewBox=\'0 0 400 300\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23f3f4f6\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-family=\'sans-serif\' font-size=\'24\' fill=\'%239ca3af\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3EProject Image%3C/text%3E%3C/svg%3E'">
+                            <div class="project-card__overlay">
+                                <a href="https://github.com/AvishekKhatri/budget-wise-forecast" class="project-card__link" aria-label="View source code">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-card__content">
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">Web</span>
+                                <span class="project-card__tag">Data</span>
+                            </div>
+                            <h3 class="project-card__title">budget-wise-forecast</h3>
+                            <p class="project-card__description">A forecasting and budgeting tool.</p>
+                        </div>
+                    </article>
+                    <!-- Project 4 -->
+                    <article class="project-card" data-category="web">
+                        <div class="project-card__image">
+                            <img src="project4.png" alt="Calculator" class="project-card__img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\' viewBox=\'0 0 400 300\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23f3f4f6\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-family=\'sans-serif\' font-size=\'24\' fill=\'%239ca3af\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3EProject Image%3C/text%3E%3C/svg%3E'">
+                            <div class="project-card__overlay">
+                                <a href="https://github.com/AvishekKhatri/Calculator" class="project-card__link" aria-label="View source code">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-card__content">
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">HTML</span>
+                                <span class="project-card__tag">CSS</span>
+                                <span class="project-card__tag">JS</span>
+                            </div>
+                            <h3 class="project-card__title">Calculator</h3>
+                            <p class="project-card__description">A web-based calculator application.</p>
+                        </div>
+                    </article>
+                    <!-- Project 5 -->
+                    <article class="project-card" data-category="web">
+                        <div class="project-card__image">
+                            <img src="project5.png" alt="Online-Hotel-Reservation" class="project-card__img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\' viewBox=\'0 0 400 300\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23f3f4f6\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-family=\'sans-serif\' font-size=\'24\' fill=\'%239ca3af\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3EProject Image%3C/text%3E%3C/svg%3E'">
+                            <div class="project-card__overlay">
+                                <a href="https://github.com/AvishekKhatri/Online-Hotel-Reservation" class="project-card__link" aria-label="View source code">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="project-card__content">
+                            <div class="project-card__tags">
+                                <span class="project-card__tag">Web</span>
+                                <span class="project-card__tag">Full Stack</span>
+                            </div>
+                            <h3 class="project-card__title">Online Hotel Reservation</h3>
+                            <p class="project-card__description">A web application for online hotel reservations and bookings.</p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========== RESUME SECTION ========== -->
+
+<section class="resume section" id="resume">
+            <div class="resume__container container">
+                <div class="section__header" data-animate="fade-up">
+                    <span class="section__subtitle">My Journey</span>
+                    <h2 class="section__title">Resume</h2>
+                    <div class="section__title-line"></div>
+                </div>
+                <div class="resume__content">
+                    <div class="resume__column" data-animate="fade-right">
+                        <h3 class="resume__column-title">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                            Virtual Experience
+                        </h3>
+                        <div class="resume__timeline">
+                            <div class="resume__item">
+                                <div class="resume__item-dot"></div>
+                                <div class="resume__item-content">
+                                    <span class="resume__item-date">30/12/2025</span>
+                                    <h4 class="resume__item-title">Tata Cybersecurity Analyst Job Simulation</h4>
+                                    <span class="resume__item-company">Forage</span>
+                                    <p class="resume__item-description">Completed a practical task in Identify Access Management. Identified vulnerabilities, monitored network traffic, and responded to simulated incidents.</p>
+                                </div>
+                            </div>
+                            <div class="resume__item">
+                                <div class="resume__item-dot"></div>
+                                <div class="resume__item-content">
+                                    <span class="resume__item-date">07/05/2026</span>
+                                    <h4 class="resume__item-title">JPMorganChase Software Engineering Job Simulation</h4>
+                                    <span class="resume__item-company">Forage</span>
+                                    <p class="resume__item-description">Completed a simulation on JPMorgan Chase's perspective Software Engineering program. Familiarized with the frameworks and applied tech skills to a representative task.</p>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="resume__item">
+                                <div class="resume__item-dot"></div>
+                                <div class="resume__item-content">
+                                    <span class="resume__item-date">2022</span>
+                                    <h4 class="resume__item-title">Student Social Responsibility (SSR)</h4>
+                                    <span class="resume__item-company">Community Outreach</span>
+                                    <p class="resume__item-description">Conducted surveys among tourists and organized awareness campaigns to promote sustainable tourism practices.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resume__column" data-animate="fade-left">
+                        <h3 class="resume__column-title">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 10 3 12 0v-5"/></svg>
+                            Education & Awards
+                        </h3>
+                        <div class="resume__timeline">
+                            <div class="resume__item">
+                                <div class="resume__item-dot"></div>
+                                <div class="resume__item-content">
+                                    <span class="resume__item-date">2021 — 2025</span>
+                                    <h4 class="resume__item-title">B.Tech in Computer Science and Engineering</h4>
+                                    <span class="resume__item-company">Amrita Vishwa Vidyapeetham | Kollam, India</span>
+                                    <p class="resume__item-description">CGPA: 6.49/10. Specialization in Information and Communication Technologies.</p>
+                                </div>
+                            </div>
+                            <div class="resume__item">
+                                <div class="resume__item-dot"></div>
+                                <div class="resume__item-content">
+                                    <span class="resume__item-date">2019 — 2021</span>
+                                    <h4 class="resume__item-title">Higher Secondary School</h4>
+                                    <span class="resume__item-company">Capital College and Research Center | Kathmandu, Nepal</span>
+                                    <p class="resume__item-description">Final grade: GPA 3.01/4</p>
+                                </div>
+                            </div>
+                            <div class="resume__item">
+                                <div class="resume__item-dot"></div>
+                                <div class="resume__item-content">
+                                    <span class="resume__item-date">11/2021</span>
+                                    <h4 class="resume__item-title">COMPEX-2021 Scholarship Scheme</h4>
+                                    <span class="resume__item-company">Embassy of India</span>
+                                    <p class="resume__item-description">Full Ride Scholarship to pursue B.Tech in Computer Science at Amrita Vishwa Vidyapeetham by the Indian Embassy, Kathmandu, Nepal.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resume__column" data-animate="fade-up">
+                        <h3 class="resume__column-title">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 10 3 12 0v-5"/></svg>
+                            Certifications & Skills
+                        </h3>
+                        <div class="resume__timeline">
+                            <div class="resume__item">
+                                <div class="resume__item-dot"></div>
+                                <div class="resume__item-content">
+                                    <span class="resume__item-date">2024 — 2026</span>
+                                    <h4 class="resume__item-title">Certifications</h4>
+                                    <span class="resume__item-company">Multiple Providers</span>
+                                    <p class="resume__item-description">
+                                        • Claude AI Fluency & Building with Claude (Anthropic, 05/2026)<br>
+                                        • Introduction to Data Science (Cisco, 05/2026)<br>
+                                        • EDA Analysis & Visualization using Power BI (SkillEcted, 10/2025)<br>
+                                        • Artificial Intelligence A-Z 2024 (Udemy, 03/2024)<br>
+                                        • Investment Risk Management (Coursera, 01/2024)<br>
+                                        • Excel Automation using ChatGPT (Simplilearn, 01/2024)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="resume__download" data-animate="fade-up">
+                    <a href="Avishek_Khatri_Resume.pdf" download="Avishek_Khatri_Resume.pdf" type="application/pdf" class="button button--primary button--large" id="downloadResume">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span>Download Full Resume</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========== CONTACT SECTION ========== -->
+
+<section class="contact section" id="contact">
+            <div class="contact__container container">
+                <div class="section__header" data-animate="fade-up">
+                    <span class="section__subtitle">Get In Touch</span>
+                    <h2 class="section__title">Contact Me</h2>
+                    <div class="section__title-line"></div>
+                </div>
+                <div class="contact__content">
+                    <div class="contact__info" data-animate="fade-right">
+                        <h3 class="contact__info-title">Let's work together!</h3>
+                        <p class="contact__info-description">
+                            I'm always open to discussing new projects, creative ideas, 
+                            or opportunities to be part of your vision. Feel free to reach out!
+                        </p>
+                        <div class="contact__cards">
+                            <div class="contact__card">
+                                <div class="contact__card-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                </div>
+                                <div class="contact__card-data">
+                                    <h4 class="contact__card-title">Email</h4>
+                                    <a href="mailto:avishekkhatri59@gmail.com" class="contact__card-value">avishekkhatri59@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="contact__card">
+                                <div class="contact__card-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                </div>
+                                <div class="contact__card-data">
+                                    <h4 class="contact__card-title">Location</h4>
+                                    <span class="contact__card-value">Kathmandu, Nepal</span>
+                                </div>
+                            </div>
+                            <div class="contact__card">
+                                <div class="contact__card-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                </div>
+                                <div class="contact__card-data">
+                                    <h4 class="contact__card-title">Phone</h4>
+                                    <a href="tel:+9771234567890" class="contact__card-value">+977 123 456 7890</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="contact__form" id="contactForm" data-animate="fade-left">
+                        <div class="form__group">
+                            <div class="form__field">
+                                <input type="text" id="contactName" name="name" class="form__input" placeholder=" " required autocomplete="name">
+                                <label for="contactName" class="form__label">Full Name</label>
+                                <span class="form__error" id="nameError"></span>
+                            </div>
+                            <div class="form__field">
+                                <input type="email" id="contactEmail" name="email" class="form__input" placeholder=" " required autocomplete="email">
+                                <label for="contactEmail" class="form__label">Email Address</label>
+                                <span class="form__error" id="emailError"></span>
+                            </div>
+                        </div>
+                        <div class="form__field">
+                            <input type="text" id="contactSubject" name="subject" class="form__input" placeholder=" " required>
+                            <label for="contactSubject" class="form__label">Subject</label>
+                            <span class="form__error" id="subjectError"></span>
+                        </div>
+                        <div class="form__field">
+                            <textarea id="contactMessage" name="message" class="form__input form__textarea" placeholder=" " required rows="5"></textarea>
+                            <label for="contactMessage" class="form__label">Your Message</label>
+                            <span class="form__error" id="messageError"></span>
+                        </div>
+                        <button type="submit" class="button button--primary button--large" id="submitBtn">
+                            <span class="button__text">Send Message</span>
+                            <span class="button__loading">
+                                <svg class="spinner" width="20" height="20" viewBox="0 0 24 24"><circle class="spinner-circle" cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+                                Sending...
+                            </span>
+                            <svg class="button__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
+                        <div class="form__success" id="formSuccess">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>Message sent successfully! I'll get back to you soon.</span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer__container container">
+            <div class="footer__content">
+                <a href="#home" class="footer__logo">
+                    <span class="logo-bracket">&lt;</span>Avishek Khatri<span class="logo-bracket"> /&gt;</span>
+                </a>
+                <p class="footer__description">Building digital experiences that matter.</p>
+            </div>
+            <div class="footer__links">
+                <a href="#home" class="footer__link">Home</a>
+                <a href="#about" class="footer__link">About</a>
+                <a href="#skills" class="footer__link">Skills</a>
+                <a href="#projects" class="footer__link">Projects</a>
+                <a href="#contact" class="footer__link">Contact</a>
+            </div>
+            <div class="footer__socials">
+                <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="footer__social" aria-label="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="footer__social" aria-label="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" class="footer__social" aria-label="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+            </div>
+            <div class="footer__bottom">
+                <span class="footer__copy">&copy; 2026 Avishek Khatri. All rights reserved.</span>
+                <span class="footer__credit">Crafted with ❤️ and clean code</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCROLL TO TOP ========== -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
